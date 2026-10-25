@@ -1,0 +1,65 @@
+#include <stdio.h>
+
+void TampilkanPapan(char papan[]) {
+    printf("\n");
+    printf("%c | %c | %c\n", papan[0], papan[1], papan[2]);
+    printf("--+---+--\n");
+    printf("%c | %c | %c\n", papan[3], papan[4], papan[5]);
+    printf("--+---+--\n");
+    printf("%c | %c | %c\n", papan[6], papan[7], papan[8]);
+}
+
+int CekMenang(char papan[]) {
+    int kombinasi[8][3] = {
+        {0, 1, 2}, {3, 4, 5}, {6, 7, 8},
+        {0, 3, 6}, {1, 4, 7}, {2, 5, 8},
+        {0, 4, 8}, {2, 4, 6}
+    };
+    for (int i = 0; i < 8; i++) {
+        if (papan[kombinasi[i][0]] ==
+            papan[kombinasi[i][1]] &&
+            papan[kombinasi[i][1]] ==
+            papan[kombinasi[i][2]]) {
+            return 1;
+        }
+    }
+    return 0;
+}
+int main() {
+    char papan[9] = {'1', '2', '3', '4', '5', '6', '7', '8', '9'};
+    int posisi;
+    int giliran = 0;
+    char pemain;
+    printf("=== Permainan Tic Tac Toe ===\n");
+    printf("Pemain 1 = X\n");
+    printf("Pemain 2 = O\n");
+    while (giliran < 9) {
+        TampilkanPapan(papan);
+        pemain = (giliran % 2 == 0) ? 'X' : 'O';
+        printf("Giliran Pemain %c\n", pemain);
+        printf("Pilih kotak (1-9): ");
+        if (scanf("%d", &posisi) != 1) {
+            printf("Input harus berupa angka, coba lagi.\n");
+            return 1;
+        }
+        if (posisi < 1 || posisi > 9) {
+            printf("Pilihan harus antara 1 sampai 9.\n");
+            continue;
+        }
+        if (papan[posisi - 1] == 'X' ||
+            papan[posisi - 1] == 'O') {
+            printf("Kotak sudah terisi, pilih kotak lain.\n");
+            continue;
+        }
+        papan[posisi - 1] = pemain;
+        giliran++;
+        if (CekMenang(papan)) {
+            TampilkanPapan(papan);
+            printf("\nPemain %c MENANG!\n", pemain);
+            return 0;
+        }
+    }
+    TampilkanPapan(papan);
+    printf("\nPermainan SERI!\n");
+    return 0;
+}
