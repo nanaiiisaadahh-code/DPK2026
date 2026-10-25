@@ -1,0 +1,17 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+int main ( int argc, char *argvn []) {
+    char *nama1 = "senin";
+    char *nama2 = "selasa";
+    char *nama3 = "rabu";
+    if (argc < 4) {
+        printf("argumen kurang\n");
+        printf("tambahkan argumen seperti: %s %s %s\n", nama1, nama2, nama3);
+        return -1;
+    }
+    printf("helo %s\n", argvn[1]);
+    printf("helo %s\n", argvn[2]);
+    printf("helo %s\n", argvn[3]);
+    return 0;
+}
